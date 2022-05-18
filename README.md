@@ -2,11 +2,11 @@
 
 User Guide of the application.
 
-Warehouses:
+**Warehouses:**
 - **create a warehouse** or multiple warehouses.
 - All warehouses will be appeared in the item creation warehouse dropdown.
 
-Items:
+**Items:**
 - For creating an item. You definately need warehouses for sure. So please create warehouse before creating items.
 - Create item by filling the given fields (All the fields are mandatory).
 - **Once an Item is created** they can be seen in **inventory items list**.
@@ -15,7 +15,7 @@ Items:
 
 All the requirements are satisfied as per the requirements.
 
-Steps to run the code. 
+**Steps to run the code: **
 - Just run the code in the replit (can take 1 - 3 minutes, it is a sping boot backend application). 
 - open the application in the new tab and check above mentioned warehouse and items requirements.
 
