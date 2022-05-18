@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Add inventory Item</h1>
+
+<p>All the fields are mandatory!</p>
+
+<form action="/inventory/saveItem">
+  <label for="name">Item name*:</label>
+  <input required type="text" id="name" name="name"><br><br>
+  <label for="brandName">Brand name*:</label>
+  <input required type="text" id="brandName" name="brandName"><br><br>
+  <label for="itemCount">Quantity*:</label>
+  <input required type="number" id="itemCount" name="itemCount"><br><br>
+  <label for="costOfItem">Item cost*:</label>
+  <input required type="number" id="costOfItem" name="costOfItem"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
+

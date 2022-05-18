@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopify Challenge</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.spacing{
+	margin: 2%;
+}
+
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="">Shopify Intern Challenge</a>
+</div>
+
+<div class="spacing">
+
+	<div class="alert alert-primary" role="alert" th:if="${message != null}">
+	  <h6 th:text="${message}"></h6>
+	</div>
+	
+	<div class="container">
+	  <div class="row">
+	    <div class="col-sm">
+	      	<h2>Add inventory Item</h2>
+			<form method="post" th:action="@{/createItem}" th:object="${itemRequest}" class="col card p-3 mb-5">
+				<div class="form-group" style="display: none">
+			        <label for="itemId">Item Name:</label>
+			        <input id="itemId" type="text" th:field="*{item.itemId}"
+			               class="form-control"/>
+			    </div>
+			    <div class="form-group">
+			        <label for="name">Item Name:</label>
+			        <input id="name" placeholder="Enter Item Name" required type="text" th:field="*{item.name}"
+			               class="form-control"/>
+			    </div>
+			    <div class="form-group">
+			        <label for="brandName">Brand Name:</label>
+			        <input id="brandName" placeholder="Enter Item Brand Name" required type="text" th:field="*{item.brandName}"
+			               class="form-control"/>
+			    </div>
+			    <div class="form-group">
+			        <label for="itemCount">Number of Items:</label>
+			        <input id="itemCount" placeholder="Enter No of Items" required type="number" th:field="*{item.itemCount}"
+			               class="form-control"/>
+			    </div>
+			    <div class="form-group">
+			        <label for="costOfItem">Cost of Item:</label>
+			        <input id="costOfItem" step="0.01" placeholder="Enter cost of each Item" required type="number" th:field="*{item.costOfItem}"
+			               class="form-control"/>
+			    </div>
+			    <div class="form-group">
+			        <label for="warehouseId">Warehouse Name</label>
+			        <select id="warehouseId" required class="form-control" th:field="*{warehouseId}">
+			            <option value="" hidden>Select a warehouse name</option>
+			            <option th:each="warehouse : ${warehouses}" th:value="${warehouse.warehouseId}" th:text="${warehouse.warehouseName}"></option>
+			        </select>
+			    </div>
+			    <input type="submit" class="btn btn-primary" value="Create or Edit Item">
+			</form>
+	    </div>
+	    <div class="col-sm">
+	      	<h2>Create Warehouse</h2>
+			<form method="post" th:action="@{/createWarehouse}" th:object="${warehouse}" class="col card p-3 mb-5">
+			    <div class="form-group">
+			        <label for="warehouseName">Warehouse Name:</label>
+			        <input id="warehouseName" placeholder="Enter Warehouse Name" required type="text" th:field="*{warehouseName}"
+			               class="form-control"/>
+			    </div>
+			    <div class="form-group">
+			        <label for="warehouseLocation">Warehouse location:</label>
+			        <input id="warehouseLocation" placeholder="Enter Warehouse Location" required type="text" th:field="*{warehouseLocation}"
+			               class="form-control"/>
+			    </div>
+			    <input type="submit" class="btn btn-primary" value="Create Warehouse">
+			</form>
+	    </div>
+	  </div>
+	  <div class="row">
+	  	<h2> Inventory Items </h2>
+	  	<table>
+		    <thead>
+		        <tr>
+		            <th> Item Id </th>
+		            <th> Item Name </th>
+		            <th> Brand Name </th>
+		            <th> No of Units </th>
+		            <th> Each Unit Cost </th>
+		            <th> Warehouse Name </th>
+		            <th> Operations </th>
+		        </tr>
+		    </thead>
+		    <tbody>
+			<tr th:if="${items.empty}">
+		            <td colspan="2"> No Items Available </td>
+		        </tr>
+		        <tr th:each="item : ${items}">
+		            <td><span th:text="${item.itemId}"> Item Id </span></td>
+		            <td><span th:text="${item.name}"> Item Name </span></td>
+		            <td><span th:text="${item.brandName}"> Brand Name </span></td>
+		            <td><span th:text="${item.itemCount}"> No of Units </span></td>
+		            <td><span th:text="${item.costOfItem}"> Each Unit Cost </span></td>
+		            <td><span th:text="${item.warehouse.warehouseName}"> Each Unit Cost </span></td>
+		            <td>
+		            	<form th:action="@{/deleteItem/} + ${item.itemId}"  method="post">
+		            		<input type="submit" class="btn btn-primary" value="Delete">
+		            	</form> <br>
+		            	<form th:action="@{/editItem/} + ${item.itemId}"  method="post">
+		            		<input type="submit" class="btn btn-primary" value="Edit">
+		            	</form>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+	  </div>
+	</div>
+</div>
+
+</body>
+</html>
