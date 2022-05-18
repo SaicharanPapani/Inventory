@@ -21,11 +21,11 @@ public class WarehouseService {
 			if(warehouse.getWarehouseLocation() == null || warehouse.getWarehouseLocation().trim().length() == 0) {
 				throw new Exception("location is required!!");
 			}
-			if(!Utilities.validateString(warehouse.getWarehouseLocation())) {
-				throw new Exception("Warehouse name contains non-alpahbets. Please correct it!");
-			}
 			if(warehouse.getWarehouseName() == null || warehouse.getWarehouseName().trim().length() == 0) {
 				throw new Exception("Warehouse name is required!!");
+			}
+			if(!Utilities.validateString(warehouse.getWarehouseName())) {
+				throw new Exception("Warehouse name contains non-alpahbets. Please correct it!");
 			}
 			repo.save(warehouse);
 			return "Warehouse successfully created!!!";
