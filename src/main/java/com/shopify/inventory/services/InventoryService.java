@@ -10,6 +10,7 @@ import com.shopify.inventory.dao.InventoryItemsRepository;
 import com.shopify.inventory.dao.WarehouseRepository;
 import com.shopify.inventory.models.Item;
 import com.shopify.inventory.models.ItemRequest;
+import com.shopify.inventory.util.Utilities;
 
 @Service
 public class InventoryService {
@@ -20,25 +21,35 @@ public class InventoryService {
 	@Autowired
 	private WarehouseRepository warehouseRepository;
 	
+	
 	public String saveorEditInventoryItem(ItemRequest itemRequest) {
 		try {
-			if(itemRequest.getItem().getCostOfItem() == null) {
+			Item item = itemRequest.getItem();
+			if(item.getCostOfItem() == null) {
 				throw new Exception("Cost of Each Item is mandatory!");
 			}
-			if(itemRequest.getItem().getItemCount() == null) {
+			if(item.getItemCount() == null) {
 				throw new Exception("Item count is mandatory!");
 			}
-			if(itemRequest.getItem().getName() == null || itemRequest.getItem().getName().trim().length() == 0) {
+			if(item.getItemCount() < 0 || item.getCostOfItem() < 0) {
+				throw new Exception("Negative number are not allowed. Please correct it!");
+			}
+			if(item.getName() == null || item.getName().trim().length() == 0) {
 				throw new Exception("Name of the item is mandatory!");
 			}
-			if(itemRequest.getItem().getBrandName() == null || itemRequest.getItem().getBrandName().trim().length() == 0) {
+			if(!Utilities.validateString(item.getName())) {
+				throw new Exception("Name contain non-alpahbets. Please correct it!");
+			}
+			if(item.getBrandName() == null || item.getBrandName().trim().length() == 0) {
 				throw new Exception("Brand name of the item is mandatory!");
 			}
-			if(itemRequest.getWarehouseId() != null) {
-				itemRequest.getItem().setWarehouse(warehouseRepository.findById(itemRequest.getWarehouseId()).get());
+			if(!Utilities.validateString(item.getBrandName())) {
+				throw new Exception("Brand Name contain non-alpahbets. Please correct it!");
 			}
-			repo.save(itemRequest.getItem());
-			
+			if(itemRequest.getWarehouseId() != null) {
+				item.setWarehouse(warehouseRepository.findById(itemRequest.getWarehouseId()).get());
+			}
+			repo.save(item);
 			return "Item Saved Successfully!!";
 		}catch (DataIntegrityViolationException e) {
 			return "Item with the same brand name in the given warehouse already exist! please go head and edit the item name or brand name or warehouse location.";
