@@ -128,6 +128,30 @@ tr:nth-child(even) {
 			</form>
 	    </div>
 	  </div>
+	
+	<div class="row">
+	  	<h2> Warehouses </h2>
+	  	<table>
+		    <thead>
+		        <tr>
+		            <th> Warehouse Id </th>
+		            <th> Warehouse Name </th>
+		            <th> Warehouse Location </th>
+		        </tr>
+		    </thead>
+		    <tbody>
+			<tr th:if="${warehouses.empty}">
+		            <td colspan="2"> No Warehouses Available! </td>
+		        </tr>
+		        <tr th:each="warehouse : ${warehouses}">
+		            <td><span th:text="${warehouse.warehouseId}"> warehouse Id </span></td>
+		            <td><span th:text="${warehouse.warehouseName}"> warehouse Name </span></td>
+		            <td><span th:text="${warehouse.warehouseLocation}"> warehouse location </span></td>
+		        </tr>
+		    </tbody>
+		</table>
+	  </div><br><hr/>
+	  
 	  <div class="row">
 	  	<h2> Inventory Items </h2>
 	  	<table>
