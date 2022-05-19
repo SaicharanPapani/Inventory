@@ -19,7 +19,7 @@ All the requirements are satisfied as per the requirements.
 Note: Every time you restart the application, your previous data will be not be persisted (I have used h2 in-memory db. This can be altered to persisted the data or use mysql (or other DB's) if the scale of application is large).
 
 **Steps to run the code:**
-- Just run the code in the replit (it is a sping boot backend application), always open the website in a new tab to see the proper working of the application. 
+- Just run the code in the replit (it is a sping boot backend application). Always open the website in a new tab to see the proper working of the application (click on open website link). 
 - Check above mentioned warehouse and items requirements.
 
 **Technologies used:**
