@@ -7,6 +7,9 @@ public class Utilities {
 	      char[] charArray = str.toCharArray();
 	      for (int i = 0; i < charArray.length; i++) {
 	         char ch = charArray[i];
+	         if(ch == ' ') {
+	        	 continue;
+	         }
 	         if (!(ch >= 'a' && ch <= 'z')) {
 	            return false;
 	         }
